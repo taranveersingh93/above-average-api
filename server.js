@@ -7,7 +7,9 @@ require('dotenv').config()
 app.set('port', process.env.PORT || 3001);
 app.locals.title = 'Above Average API';
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://taranveer-above-average.vercel.app/*'
+}));
 app.use(express.json());
 
 app.get('/nasdaqData', async (req, res) => {
