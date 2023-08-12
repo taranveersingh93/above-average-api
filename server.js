@@ -8,7 +8,7 @@ app.set('port', process.env.PORT || 3001);
 app.locals.title = 'Above Average API';
 
 app.use(cors({
-  origin: 'https://taranveer-above-average.vercel.app/*'
+  origin: 'https://taranveer-above-average.vercel.app*'
 }));
 app.use(express.json());
 
