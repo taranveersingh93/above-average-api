@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.get('/nasdaqData', async (req, res) => {
   try {
-    const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY}`)
+    const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY_2}`)
     const responseJSON = await response.json()
   
     if (response.status === 429) {
@@ -32,7 +32,7 @@ app.get('/nasdaqData', async (req, res) => {
 
 app.get('/nasdaqConstituents', async (req, res) => {
   try {
-    const response = await fetch(`https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${process.env.REACT_APP_API_KEY}`)
+    const response = await fetch(`https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${process.env.REACT_APP_API_KEY_2}`)
     const responseJSON = await response.json()
   
     if (response.status === 429) {
@@ -50,7 +50,7 @@ app.get('/nasdaqConstituents', async (req, res) => {
 app.get('/:symbol', async (req, res) => {
   try {
     const symbol = req.params.symbol;
-    const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${process.env.REACT_APP_API_KEY}`)
+    const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${process.env.REACT_APP_API_KEY_2}`)
     const responseJSON = await response.json()
 
     if (response.status === 429) {
