@@ -22,8 +22,14 @@ const isDateToday = (cacheDate) => {
   const today = new Date();
   const todayHours = today.getUTCHours();
   const cacheHours = cacheDate.getUTCHours();
-  const cacheTimeCutoffGood = cacheDate.getUTCHours() > 10 || (cacheDate.getUTCHours() == 10 && cacheDate.getMinutes() > 30)
-  const currentTimeCutOffGood = today.getUTCHours() > 10 || (today.getUTCHours() === 10 && today.getMinutes() > 30)
+  const cacheMinutes = cacheDate.getMinutes();
+  const todayMinutes = today.getMinutes();
+  const cacheTimePast11 = cacheHours > 22;
+  const cacheTime1030 = cacheHours === 22 && cacheMinutes > 30;
+  const todayTimePast11 = todayHours > 22;
+  const todayTime1030 = todayHours === 22 && todayMinutes > 30;
+  const cacheTimeCutoffGood = cacheTime1030 || cacheTimePast11;
+  const currentTimeCutOffGood = todayTime1030 || todayTimePast11;
   const weekendToday = today.getDay() === 6 || today.getDay() === 0;
 
   //weekend today but cache is good.
