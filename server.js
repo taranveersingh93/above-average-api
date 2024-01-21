@@ -9,10 +9,10 @@ require('dotenv').config()
 app.set('port', process.env.PORT || 3001);
 app.locals.title = 'Above Average API';
 
-// app.use(cors({
-//   origin: 'https://taranveer-above-average.vercel.app'
-// }));
-app.use(cors());
+app.use(cors({
+  origin: 'https://taranveer-above-average.vercel.app'
+}));
+// app.use(cors());
 app.use(express.json());
 
 const isDateToday = (cacheDate) => {
