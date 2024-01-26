@@ -83,7 +83,7 @@ app.get('/nasdaqData', async (req, res) => {
     if(localResponse && localResponseGood) {
       res.status(200).json(localResponse);
     } else {
-      response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY}`)
+      response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY_2}`)
       const responseJSON = await response.json()
       const cacheDate = new Date();
       myCache.set("nasdaqDataDate", cacheDate);
@@ -110,7 +110,7 @@ app.get('/nasdaqConstituents', async (req, res) => {
     const localResponse = myCache.get("nasdaqConstituents");
 
     if (!localResponse) {
-      const response = await fetch(`https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${process.env.REACT_APP_API_KEY}`)
+      const response = await fetch(`https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${process.env.REACT_APP_API_KEY_2}`)
       const responseJSON = await response.json();
       myCache.set("nasdaqConstituents", responseJSON, 3600);
       const cacheDate = new Date();
@@ -144,7 +144,7 @@ app.get('/:symbol', async (req, res) => {
     if (localResponse && localResponseGood) {
       res.status(200).json(localResponse);
     } else {
-      const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${process.env.REACT_APP_API_KEY}`)
+      const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${process.env.REACT_APP_API_KEY_2}`)
       const responseJSON = await response.json()
       const cacheDate = new Date();
       myCache.set(`${symbol}StockDate`, cacheDate);
