@@ -42,6 +42,11 @@ const isDateToday = (cacheDate) => {
     return true
   }
 
+  //sunday request with sat cache but not over 2 days old
+  if(weekendToday && cacheDate.getDay() === 6 && today - cacheDate < (86400000*2)) {
+    return true;
+  }
+
   //same day after 5:30
   if (today.getDate() === cacheDate.getDate() && today.getMonth() === today.getMonth() && cacheTimeCutoffGood) {
     return true;
@@ -83,7 +88,7 @@ app.get('/nasdaqData', async (req, res) => {
     if(localResponse && localResponseGood) {
       res.status(200).json(localResponse);
     } else {
-      response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY_2}`)
+      response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY}`)
       const responseJSON = await response.json()
       const cacheDate = new Date();
       myCache.set("nasdaqDataDate", cacheDate);
@@ -110,9 +115,9 @@ app.get('/nasdaqConstituents', async (req, res) => {
     const localResponse = myCache.get("nasdaqConstituents");
 
     if (!localResponse) {
-      const response = await fetch(`https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${process.env.REACT_APP_API_KEY_2}`)
+      const response = await fetch(`https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${process.env.REACT_APP_API_KEY}`)
       const responseJSON = await response.json();
-      const nasdaqData = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY_2}`)
+      const nasdaqData = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY}`)
       const responseNasdaqData = await nasdaqData.json();
       myCache.set("nasdaqConstituents", responseJSON, 3600);
       myCache.set("nasdaqData", responseNasdaqData)
@@ -148,7 +153,7 @@ app.get('/:symbol', async (req, res) => {
     if (localResponse && localResponseGood) {
       res.status(200).json(localResponse);
     } else {
-      const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${process.env.REACT_APP_API_KEY_2}`)
+      const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${process.env.REACT_APP_API_KEY}`)
       const responseJSON = await response.json()
       const cacheDate = new Date();
       myCache.set(`${symbol}StockDate`, cacheDate);
