@@ -6,8 +6,11 @@ const router = require('./routes/index.js'); // Replace import with require
 const app = express();
 app.set('port', process.env.PORT || 3001);
 app.locals.title = 'Above Average API';
+const allowedOrigins = ['https://taranveer-above-average.vercel.app'];
 
-app.use(cors());
+app.use(cors({
+  origin: allowedOrigins,
+}));
 app.use(express.json());
 
 app.use(router);
