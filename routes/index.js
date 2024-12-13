@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import nasdaqRouter from './nasdaqRoutes';
-import stockRouter from './stockRoutes';
+const { Router } = require('express');
+const nasdaqRouter = require('./nasdaqRoutes');
+const stockRouter = require('./stockRoutes');
 
 const router = Router();
 
 router.use(nasdaqRouter);
-router.use(stockRouter);
+router.use(stockRouter); 
 
-export default router;
+module.exports = router;

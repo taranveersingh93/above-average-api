@@ -1,8 +1,8 @@
 const { Router } = require('express');
-import { getNasdaqConstituents } from '../controllers/nasdaqController';
+const { getNasdaqConstituents } = require('../controllers/nasdaqController');
 
 const nasdaqRouter = Router();
 
 nasdaqRouter.get('/nasdaqConstituents', getNasdaqConstituents);
 
-export default nasdaqRouter;
+module.exports = nasdaqRouter;
