@@ -25,7 +25,7 @@ const isDateToday = (cacheDate) => {
   const cacheMinutes = cacheDate.getMinutes();
   const todayMinutes = today.getMinutes();
   const cacheTimePast11 = cacheHours > 22;
-  const cacheTime1030 = cacheHours === 22 && cacheMinutes > 30;
+  const cacheTime1030 = cacheHours === 22 && cacheMinutes > 30; //UTC is 5 hrs + EST
   const todayTimePast11 = todayHours > 22;
   const todayTime1030 = todayHours === 22 && todayMinutes > 30;
   const cacheTimeCutoffGood = cacheTime1030 || cacheTimePast11;
@@ -63,51 +63,7 @@ const isDateToday = (cacheDate) => {
   }
 
   return false;
-  // const dateString = today.toLocaleString("en-US", {
-  //   timeZone: "America/New_York",
-  // });
-  // const dateArray1 = dateString.split("/"); // mm/dd/yyyy
-
-  // const dateArray2 = date.split("-"); //yyyy-mm-dd
-  // const datesMatch = parseInt(dateArray1[1]) === parseInt(dateArray2[2]);
-  // const monthsMatch = parseInt(dateArray1[0]) === parseInt(dateArray2[1]);
-  // const yearsMatch = parseInt(dateArray1[2]) === parseInt(dateArray2[0]);
-  // return datesMatch && monthsMatch && yearsMatch;
 };
-
-app.get('/nasdaqData', async (req, res) => {
-  try {
-
-    let localResponse = myCache.get("nasdaqData");
-    let localResponseGood = false;
-
-    if (localResponse?.historical) {
-        localResponseGood = isDateToday(myCache.get("nasdaqDataDate"));
-    }
-
-    if(localResponse && localResponseGood) {
-      res.status(200).json(localResponse);
-    } else {
-      response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY_2}`)
-      const responseJSON = await response.json()
-      const cacheDate = new Date();
-      myCache.set("nasdaqDataDate", cacheDate);
-      myCache.set("nasdaqData", responseJSON);
-
-      if (response.status === 429) {
-        res.status(429).json(responseJSON)
-      } else if (!response.ok) {
-        res.status(404).json(responseJSON)
-      } else {
-        res.status(200).json(responseJSON)
-      }
-    }
-  
-  } catch (error) {
-    res.status(500).json({message: error})
-  }
-  
-});
 
 app.get('/nasdaqConstituents', async (req, res) => {
   try {
@@ -117,13 +73,10 @@ app.get('/nasdaqConstituents', async (req, res) => {
     if (!localResponse) {
       const response = await fetch(`https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${process.env.REACT_APP_API_KEY_2}`)
       const responseJSON = await response.json();
-      const nasdaqData = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY_2}`)
-      const responseNasdaqData = await nasdaqData.json();
+
       myCache.set("nasdaqConstituents", responseJSON, 3600);
-      myCache.set("nasdaqData", responseNasdaqData)
       const cacheDate = new Date();
       myCache.set("nasdaqConstituentsDate", cacheDate);
-      myCache.set("nasdaqDataDate", cacheDate);
       if (response.status === 429) {
         res.status(429).json(responseJSON)
       } else if (!response.ok) {
