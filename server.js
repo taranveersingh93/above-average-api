@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import routes from './routes/index.js';
+import router from './routes/index.js';
 
 dotenv.config();
 
@@ -12,7 +12,7 @@ app.locals.title = 'Above Average API';
 app.use(cors());
 app.use(express.json());
 
-app.use(routes);
+app.use(router);
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`);

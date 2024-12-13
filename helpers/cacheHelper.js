@@ -2,8 +2,8 @@ import NodeCache from 'node-cache';
 
 const myCache = new NodeCache();
 
-export const setCache = (key, value, ttl = 3600) => {
-  myCache.set(key, value, ttl);
+export const setCache = (key, value) => {
+  myCache.set(key, value);
 };
 
 export const getCache = (key) => {
