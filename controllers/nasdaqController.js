@@ -1,6 +1,6 @@
 const { getNasdaqConstituentsFromApi } = require('../services/nasdaqService');
 
-export const getNasdaqConstituents = async (req, res) => {
+const getNasdaqConstituents = async (req, res) => {
   try {
     const data = await getNasdaqConstituentsFromApi();
     return res.status(200).json(data);
@@ -13,3 +13,5 @@ export const getNasdaqConstituents = async (req, res) => {
     });
   }
 };
+
+module.exports = {getNasdaqConstituents};

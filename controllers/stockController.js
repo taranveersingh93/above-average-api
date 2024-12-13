@@ -1,6 +1,6 @@
 const { getStockDataFromApi } = require('../services/stockService');
 
-export const getStockData = async (req, res) => {
+const getStockData = async (req, res) => {
   const symbol = req.params.symbol;
   try {
     const data = await getStockDataFromApi(symbol);
@@ -14,3 +14,5 @@ export const getStockData = async (req, res) => {
     });
   }
 };
+
+module.exports = {getStockData};

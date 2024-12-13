@@ -1,16 +1,16 @@
-import NodeCache from 'node-cache';
+const NodeCache = require('node-cache'); 
 
 const myCache = new NodeCache();
 
-export const setCache = (key, value) => {
+const setCache = (key, value) => {
   myCache.set(key, value);
 };
 
-export const getCache = (key) => {
+const getCache = (key) => {
   return myCache.get(key);
 };
 
-export const isCacheValid = (cacheDate) => {
+const isCacheValid = (cacheDate) => {
     if (!cacheDate) return false;
   
     const today = new Date();
@@ -68,4 +68,4 @@ export const isCacheValid = (cacheDate) => {
     return false;
   };
   
-export default myCache;
+module.exports = {isCacheValid, setCache, getCache}

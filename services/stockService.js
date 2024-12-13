@@ -1,7 +1,7 @@
 const { getCache, setCache, isCacheValid } = require('../helpers/cacheHelper');
 const fetch = require('node-fetch');
 
-export const getStockDataFromApi = async (symbol) => {
+const getStockDataFromApi = async (symbol) => {
   try {
     const cacheKey = `${symbol}Stock`;
     const cacheDateKey = `${symbol}StockDate`;
@@ -35,3 +35,5 @@ export const getStockDataFromApi = async (symbol) => {
     throw error;
   }
 };
+
+module.exports = {getStockDataFromApi}
