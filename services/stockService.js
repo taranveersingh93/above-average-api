@@ -1,8 +1,7 @@
-import { getCache, setCache } from '../helpers/cacheHelper.js';
-import fetch from 'node-fetch';
-import { isCacheValid } from '../helpers/cacheHelper.js';
+const { getCache, setCache, isCacheValid } = require('../helpers/cacheHelper');
+const fetch = require('node-fetch');
 
-export const getStockData = async (symbol) => {
+export const getStockDataFromApi = async (symbol) => {
   try {
     const cacheKey = `${symbol}Stock`;
     const cacheDateKey = `${symbol}StockDate`;

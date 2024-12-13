@@ -1,10 +1,9 @@
-import { getStockData } from '../services/stockService.js';
+const { getStockDataFromApi } = require('../services/stockService');
 
 export const getStockData = async (req, res) => {
   const symbol = req.params.symbol;
-
   try {
-    const data = await getStockData(symbol);
+    const data = await getStockDataFromApi(symbol);
     return res.status(200).json(data);
   } catch (error) {
     console.error('Error fetching stock data for symbol:', symbol, error.message);

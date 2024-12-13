@@ -1,8 +1,7 @@
-import { getCache, setCache } from '../helpers/cacheHelper.js';
-import fetch from 'node-fetch';
-import { isCacheValid } from '../helpers/cacheHelper.js';
+const { getCache, setCache, isCacheValid } = require('../helpers/cacheHelper');
+const fetch = require('node-fetch');
 
-export const getNasdaqConstituents = async () => {
+export const getNasdaqConstituentsFromApi = async () => {
   try {
     const cachedData = getCache('nasdaqConstituents');
     const cacheDate = getCache('nasdaqConstituentsDate');
