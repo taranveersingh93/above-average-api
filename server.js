@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const router = require('./routes/index.js'); // Replace import with require
+const router = require('./routes/index');  // No need to add '.js' when requiring JavaScript files in Node.js
 
 const app = express();
-app.set('port', process.env.PORT || 3001);
+const port = process.env.PORT || 3001;
+app.set('port', port);
 app.locals.title = 'Above Average API';
+
 const allowedOrigins = ['https://taranveer-above-average.vercel.app'];
 
 app.use(cors({
@@ -15,6 +17,6 @@ app.use(express.json());
 
 app.use(router);
 
-app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`);
+app.listen(port, () => {
+  console.log(`${app.locals.title} is running on http://localhost:${port}.`);
 });
